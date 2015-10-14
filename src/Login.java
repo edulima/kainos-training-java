@@ -3,36 +3,21 @@ import java.sql.*;
 
 public class Login {
 
-	private String username;
-	private String password;
 	public Connection conn = null;
 	public Statement stmt = null;
 	public ResultSet rs = null;
 	public PreparedStatement login;
 	private Language lang;
+	private DBStatements queries;
 
 	
 	public Login() {
 
-		DBConnect co = new DBConnect();
-		lang = new Language("english");
+		DBConnection co = new DBConnection();
 		conn = co.connect();
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+		
+		queries = new DBStatements();
+		lang = new Language("english");
 	}
 
 	public boolean validateUser(String username, String password) {
@@ -40,7 +25,7 @@ public class Login {
 		try {
 
 			login = conn
-					.prepareStatement("select * from users where username =? and userpassword =?");
+					.prepareStatement(queries.getValidateUserQuery());
 
 			login.setString(1, username);
 			login.setString(2, password);
@@ -60,7 +45,6 @@ public class Login {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return false;
 	}
 
@@ -69,16 +53,14 @@ public class Login {
 		if (checkUsername(username)) {
 			return true;
 		}
-
 		return false;
-
 	}
 
 	public boolean checkUsername(String username) {
 
 		try {
 			login = conn
-					.prepareStatement("select username from users where username=?");
+					.prepareStatement(queries.getCheckUserNameQuery());
 			login.setString(1, username);
 			rs = login.executeQuery();
 
@@ -87,10 +69,8 @@ public class Login {
 				return true;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return false;
 	}
 
@@ -98,7 +78,7 @@ public class Login {
 
 		try {
 			login = conn
-					.prepareStatement("insert into users (username, userpassword) values (?,?)");
+					.prepareStatement(queries.getInsertUserQuery());
 			login.setString(1, username);
 			login.setString(2, password);
 			login.execute();
@@ -108,7 +88,17 @@ public class Login {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		return false;
+	}
+	
+	public boolean matchPassword(String password1, String password2) {
+		if(!password1.equals(password2)) {
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean checkIfDBExists() {
 		return false;
 	}
 

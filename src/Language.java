@@ -23,6 +23,8 @@ public class Language {
 			msg.add("Username already exist, try again: ");
 			msg.add("User created...");
 			msg.add("User not found...");
+			msg.add("Please enter your password again: ");
+			msg.add("Passwords not matching, try password again...");
 			
 			break;
 

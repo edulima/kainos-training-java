@@ -4,9 +4,10 @@
  */
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DBConnect {
+public class DBConnection {
 	
 	private Connection conn = null;
 	private String dbUsername;
@@ -21,7 +22,7 @@ public class DBConnect {
 	    	
 	  try {
 	      Class.forName("com.mysql.jdbc.Driver").newInstance();		       
-		  conn = DriverManager.getConnection(url,dbUsername,dbPassword);       	  
+		  conn = DriverManager.getConnection(url,dbUsername,dbPassword); 
 	  }catch(SQLException se) {
 		   se.printStackTrace();	   
 		   System.err.print("could not connect" + se.getMessage());	     
