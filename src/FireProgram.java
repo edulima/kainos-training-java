@@ -22,9 +22,12 @@ public class FireProgram {
 		System.out.println(msg.getLanguage().get(0));
 				
 		while(!isValidRegistrationAnswer)  {
+			
 			System.out.println(msg.getLanguage().get(1));
 			registration = sc.next().toLowerCase();	
+			
 			if (registration.equals("yes") || registration.equals("no")) {
+				
 				isValidRegistrationAnswer = true;
 			}
 		}   
@@ -54,27 +57,9 @@ public class FireProgram {
 				
 			displayLoginMsgs();
 			openConnection.validateUser(username, password);
-				
-	//			System.out.println(msg.getLanguage().get(2));
-	//			username = sc.next();
-	//			
-	//			System.out.println(msg.getLanguage().get(3));
-	//			password = sc.next();
-			
+						
 		}
-		
-
-		
-//		while(login.checkUsername(username)) {
-//			System.out.println("Invalid username");
-//			System.out.println("Please enter username: ");
-//		}
-		
-	  //  System.out.println("Please enter password: ");
-	   // password = sc.next();
-	  
-	  //  Login login = new Login(username, password);
-	    
+			    
 	    sc.close();
 	}
 	
